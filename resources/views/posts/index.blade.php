@@ -6,20 +6,35 @@
             <h2 class="text-3xl font-bold text-gray-900">Najnowsze Posty</h2>
             <p class="mt-2 text-gray-600">Odkryj najnowsze artykuły z świata programowania</p>
         </div>
-
         <!-- Filters/Search Bar -->
-        <div class="mb-6 flex flex-col sm:flex-row gap-4">
+        <form method="GET" action="{{ route('posts.index') }}" class="mb-6 flex flex-col sm:flex-row gap-4">
             <div class="flex-1">
-                <input type="text" placeholder="Szukaj postów..."
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+            <input
+                type="text"
+                name="search"
+                value="{{ request('search') }}"
+                placeholder="Szukaj postów..."
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            >
             </div>
-            <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                <option>Wszystkie kategorie</option>
-                <option>Laravel</option>
-                <option>React</option>
-                <option>AI & Copilot</option>
+
+            <select
+            name="category"
+            class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+            >
+            <option value="">Wszystkie kategorie</option>
+            <option value="Laravel" {{ request('category') === 'Laravel' ? 'selected' : '' }}>Laravel</option>
+            <option value="React" {{ request('category') === 'React' ? 'selected' : '' }}>React</option>
+            <option value="AI & Copilot" {{ request('category') === 'AI & Copilot' ? 'selected' : '' }}>AI & Copilot</option>
             </select>
-        </div>
+
+            <button
+            type="submit"
+            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+            >
+            Filtruj
+            </button>
+        </form>
 
         <!-- Posts Grid -->
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -58,6 +73,18 @@
                             </div>
                             <span class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</span>
                         </div>
+                        <div class="flex gap-2 mt-4 pt-4 border-t border-gray-100">
+                            <a href="{{ route('posts.edit', $post->id) }}" class="flex-1 text-center px-2 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded hover:bg-blue-100 transition">
+                                ✏️ Edytuj
+                            </a>
+                            <form method="POST" action="{{ route('posts.destroy', $post->id) }}" class="flex-1" onsubmit="return confirm('Czy na pewno?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="w-full px-2 py-1 bg-red-50 text-red-600 text-xs font-semibold rounded hover:bg-red-100 transition">
+                                    🗑️ Usuń
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </article>
             @empty
@@ -68,9 +95,11 @@
                     </a>
                 </div>
             @endforelse
+        </div>
 
+        <!-- Pagination -->
+        <div class="mt-12 flex justify-center">
+            {{ $posts->links('pagination::tailwind') }}
         </div>
     </main>
-
-
 </x-layout>

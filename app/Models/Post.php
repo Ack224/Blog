@@ -14,5 +14,16 @@ class Post extends Model
         'author',
         'photo',
         'is_published',
+        'category',
     ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 }
