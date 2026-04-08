@@ -4,25 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class BookmarkController extends Controller
 {
-    public function toggle(Post $post)
+    public function index(Request $request): View
     {
-        $user = Auth::user();
+        $bookmarks = $request->user()
+            ->bookmarks()
+            ->with('user')
+            ->withCount(['likedByUsers', 'bookmarkedBy'])
+            ->latest('bookmarks.created_at')
+            ->paginate(9);
 
-        $exists = $user->bookmarks()->where('post_id', $post->id)->exists();
+        return view('bookmarks.index', [
+            'bookmarks' => $bookmarks,
+        ]);
+    }
 
-        if ($exists) {
-            $user->bookmarks()->where('post_id', $post->id)->delete();
-            $message = 'Post został usunięty z zakładek!';
-        } else {
-            $user->bookmarks()->create(['post_id' => $post->id]);
-            $message = 'Post został dodany do zakładek!';
-        }
+    public function store(Request $request, Post $post)
+    {
+        $this->authorize('bookmark-post', $post);
 
-        return back()->with('success', $message);
+        $request->user()->bookmarks()->syncWithoutDetaching([$post->id]);
+
+        return back()->with('success', 'Post zapisany w zakladkach.');
+    }
+
+    public function destroy(Request $request, Post $post)
+    {
+        $request->user()->bookmarks()->detach($post->id);
+
+        return back()->with('success', 'Post usuniety z zakladek.');
     }
 }
-

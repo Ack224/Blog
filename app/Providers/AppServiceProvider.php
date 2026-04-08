@@ -22,13 +22,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Authorization Gates
+        // Define authorization gates
+        Gate::define('create-post', function (User $user) {
+            return true; // All authenticated users can create posts
+        });
+
         Gate::define('update-post', function (User $user, Post $post) {
             return $user->id === $post->user_id;
         });
 
         Gate::define('delete-post', function (User $user, Post $post) {
             return $user->id === $post->user_id;
+        });
+
+        Gate::define('bookmark-post', function (User $user, Post $post) {
+            return true; // All authenticated users can bookmark
+        });
+
+        Gate::define('follow-user', function (User $user, User $targetUser) {
+            return $user->id !== $targetUser->id;
         });
     }
 }

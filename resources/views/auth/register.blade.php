@@ -1,143 +1,107 @@
 <x-layout>
-    <main class="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+    <div class="min-h-screen flex items-center justify-center px-4 py-12">
         <div class="w-full max-w-md">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <!-- Header -->
-                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-8 text-white">
-                    <h1 class="text-3xl font-bold">Zarejestruj się</h1>
-                    <p class="mt-2 text-purple-100">Dołącz do naszej społeczności blogerów</p>
-                </div>
-
-                <!-- Form -->
-                <div class="px-6 py-8">
-                    @if ($errors->any())
-                        <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                            <p class="text-red-700 font-medium">Błędy w formularzu</p>
-                            <ul class="mt-2 text-sm text-red-600 space-y-1">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('register.store') }}" class="space-y-4">
-                        @csrf
-
-                        <!-- Name -->
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                                Imię i nazwisko
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value="{{ old('name') }}"
-                                required
-                                autofocus
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                placeholder="Jan Kowalski"
-                            >
-                            @error('name')
-                                <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Email -->
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value="{{ old('email') }}"
-                                required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                placeholder="twój@email.com"
-                            >
-                            @error('email')
-                                <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Password -->
-                        <div>
-                            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
-                                Hasło (minimum 8 znaków)
-                            </label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                placeholder="••••••••"
-                            >
-                            @error('password')
-                                <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Confirm Password -->
-                        <div>
-                            <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">
-                                Potwierdź hasło
-                            </label>
-                            <input
-                                type="password"
-                                id="password_confirmation"
-                                name="password_confirmation"
-                                required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                placeholder="••••••••"
-                            >
-                            @error('password_confirmation')
-                                <span class="text-red-600 text-sm mt-1">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Terms -->
-                        <p class="text-xs text-gray-600">
-                            Rejestrując się, akceptujesz nasze warunki użytkowania.
-                        </p>
-
-                        <!-- Submit -->
-                        <button
-                            type="submit"
-                            class="w-full bg-indigo-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors mt-6"
-                        >
-                            Zarejestruj się
-                        </button>
-                    </form>
-
-                    <!-- Login Link -->
-                    <p class="mt-6 text-center text-gray-600">
-                        Już masz konto?
-                        <a href="{{ route('login') }}" class="text-indigo-600 hover:text-indigo-700 font-medium">
-                            Zaloguj się
-                        </a>
-                    </p>
-                </div>
+            <!-- Gradient header -->
+            <div class="bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 rounded-t-lg px-6 py-8">
+                <h1 class="text-3xl font-bold text-white text-center">Zarejestruj się</h1>
+                <p class="text-green-100 text-center mt-2">Dołącz do naszej społeczności</p>
             </div>
 
-            <!-- Features -->
-            <div class="mt-6 grid grid-cols-3 gap-4 text-center text-sm">
-                <div class="p-3 bg-white rounded-lg shadow-sm">
-                    <div class="text-2xl mb-1">📝</div>
-                    <p class="text-gray-600">Tworzyć posty</p>
-                </div>
-                <div class="p-3 bg-white rounded-lg shadow-sm">
-                    <div class="text-2xl mb-1">💬</div>
-                    <p class="text-gray-600">Komentować</p>
-                </div>
-                <div class="p-3 bg-white rounded-lg shadow-sm">
-                    <div class="text-2xl mb-1">🔖</div>
-                    <p class="text-gray-600">Zbierać</p>
-                </div>
+            <!-- Form card -->
+            <div class="bg-white dark:bg-slate-900 rounded-b-lg shadow-lg p-8">
+                @if ($errors->any())
+                    <div class="mb-6 p-4 bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg">
+                        <div class="text-red-700 dark:text-red-200 text-sm font-medium">
+                            @foreach ($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('register.store') }}" class="space-y-5">
+                    @csrf
+
+                    <!-- Name field -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+                            Pełne imię i nazwisko
+                        </label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            value="{{ old('name') }}"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-800 dark:text-gray-100 transition-colors"
+                            placeholder="Jan Kowalski"
+                        >
+                    </div>
+
+                    <!-- Email field -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+                            Adres email
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            value="{{ old('email') }}"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-800 dark:text-gray-100 transition-colors"
+                            placeholder="jan@example.com"
+                        >
+                    </div>
+
+                    <!-- Password field -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+                            Hasło
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-800 dark:text-gray-100 transition-colors"
+                            placeholder="••••••••"
+                        >
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Minimum 8 znaków</p>
+                    </div>
+
+                    <!-- Password confirmation -->
+                    <div>
+                        <label for="password_confirmation" class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+                            Potwierdź hasło
+                        </label>
+                        <input
+                            type="password"
+                            name="password_confirmation"
+                            id="password_confirmation"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-slate-800 dark:text-gray-100 transition-colors"
+                            placeholder="••••••••"
+                        >
+                    </div>
+
+                    <!-- Submit button -->
+                    <button
+                        type="submit"
+                        class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 mt-6"
+                    >
+                        Zarejestruj się
+                    </button>
+                </form>
+
+                <!-- Login link -->
+                <p class="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                    Masz już konto?
+                    <a href="{{ route('login') }}" class="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium">
+                        Zaloguj się
+                    </a>
+                </p>
             </div>
         </div>
-    </main>
+    </div>
 </x-layout>

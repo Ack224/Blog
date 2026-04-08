@@ -29,9 +29,10 @@ This project has domain-specific skills available. You MUST activate the relevan
 - `tailwindcss-development` — Styles applications using Tailwind CSS v4 utilities. Activates when adding styles, restyling components, working with gradients, spacing, layout, flex, grid, responsive design, dark mode, colors, typography, or borders; or when the user mentions CSS, styling, classes, Tailwind, restyle, hero section, cards, buttons, or any visual/UI changes.
 
 ## Conventions
--„Przed implementacją nowej funkcjonalności użyj narzędzia search-docs aby sprawdzić aktualną dokumentację dla wersji pakietów zainstalowanych w projekcie."
--„Zasoby Filament (resources, pages, widgets) MUSZĄ być tworzone za pomocą komend php artisan make:filament-* z flagą --no-interaction i odpowiednimi opcjami. Nigdy nie generuj plików Filament ręcznie — użyj CLI, potem modyfikuj wygenerowane pliki."
--„Po każdej nowej implementacji funkcjonalności, agent musi także stworzyć odpowiednie testy Pest (feature tests). Testy powinny pokrywać happy path i edge cases."
+-po każdej dużej zmianie rób git add i commita z opisem zmiany
+-Przed implementacją nowej funkcjonalności użyj narzędzia search-docs aby sprawdzić aktualną dokumentację dla wersji pakietów zainstalowanych w projekcie.
+-Zasoby Filament (resources, pages, widgets) MUSZĄ być tworzone za pomocą komend php artisan make:filament-* z flagą --no-interaction i odpowiednimi opcjami. Nigdy nie generuj plików Filament ręcznie — użyj CLI, potem modyfikuj wygenerowane pliki.
+-Po każdej nowej implementacji funkcjonalności, agent musi także stworzyć odpowiednie testy Pest (feature tests). Testy powinny pokrywać happy path i edge cases.
 - You must follow all existing code conventions used in this application. When creating or editing a file, check sibling files for the correct structure, approach, and naming.
 - Use descriptive names for variables and methods. For example, `isRegisteredForDiscounts`, not `discount()`.
 - Check for existing components to reuse before writing a new one.
