@@ -66,31 +66,43 @@
                         <div class="flex items-center justify-between pt-4 border-t border-gray-100">
                             <div class="flex items-center gap-2">
                                 <div
-                                    class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-semibold">
-                                    {{ strtoupper(substr($post->author, 0, 2)) }}
+                                    class="w-8 h-8 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center text-sm font-semibold text-white">
+                                    {{ strtoupper(substr($post->user->name, 0, 2)) }}
                                 </div>
-                                <span class="text-sm text-gray-700 font-medium">{{ $post->author }}</span>
+                                <span class="text-sm text-gray-700 font-medium">{{ $post->user->name }}</span>
                             </div>
                             <span class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</span>
                         </div>
                         <div class="flex gap-2 mt-4 pt-4 border-t border-gray-100">
-                            <a href="{{ route('posts.edit', $post->id) }}" class="flex-1 text-center px-2 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded hover:bg-blue-100 transition">
-                                ✏️ Edytuj
-                            </a>
-                            <form method="POST" action="{{ route('posts.destroy', $post->id) }}" class="flex-1" onsubmit="return confirm('Czy na pewno?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="w-full px-2 py-1 bg-red-50 text-red-600 text-xs font-semibold rounded hover:bg-red-100 transition">
-                                    🗑️ Usuń
-                                </button>
-                            </form>
+                            @auth
+                                @if (Gate::allows('update-post', $post))
+                                    <a href="{{ route('posts.edit', $post->id) }}" class="flex-1 text-center px-2 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded hover:bg-blue-100 transition">
+                                        ✏️ Edytuj
+                                    </a>
+                                    <form method="POST" action="{{ route('posts.destroy', $post->id) }}" class="flex-1" onsubmit="return confirm('Czy na pewno?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="w-full px-2 py-1 bg-red-50 text-red-600 text-xs font-semibold rounded hover:bg-red-100 transition">
+                                            🗑️ Usuń
+                                        </button>
+                                    </form>
+                                @else
+                                    <button class="flex-1 px-2 py-1 bg-indigo-50 text-indigo-600 text-xs font-semibold rounded hover:bg-indigo-100 transition">
+                                        👥 Obserwuj
+                                    </button>
+                                @endif
+                            @else
+                                <a href="{{ route('login') }}" class="flex-1 text-center px-2 py-1 bg-gray-50 text-gray-600 text-xs font-semibold rounded hover:bg-gray-100 transition">
+                                    🔐 Zaloguj się
+                                </a>
+                            @endauth
                         </div>
                     </div>
                 </article>
             @empty
                 <div class="col-span-full text-center py-12">
                     <p class="text-gray-500 text-lg">Brak postów do wyświetlenia.</p>
-                    <a href="/posts/create" class="text-indigo-600 hover:text-indigo-700 font-medium mt-2 inline-block">
+                    <a href="{{ route('posts.create') }}" class="text-indigo-600 hover:text-indigo-700 font-medium mt-2 inline-block">
                         Dodaj pierwszy post
                     </a>
                 </div>
