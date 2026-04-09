@@ -1,116 +1,78 @@
-# Modern Laravel Blog Platform
+# Nowoczesna Platforma Blogowa (Laravel)
 
-A clean, high-performance content management system built with Laravel 12 and Filament v5. Designed with focus on responsive user experience, social interactions, and modular architecture.
+Szybki, wydajny i minimalistyczny system zarządzania treścią (CMS) zbudowany w oparciu o Laravel 12 oraz Filament v5. Koncentruje się na dostarczaniu płynnego interfejsu (UX), rozwiniętych interakcjach społecznościowych i modularnej architekturze.
 
-## Stack
+## Technologie
 
 - **Backend:** PHP 8.2+, Laravel 12
-- **Admin Panel:** Filament 5
+- **Panel Administratora:** Filament 5
 - **Frontend:** Tailwind CSS 4, Vite
-- **Database:** SQLite (default), compatible with MySQL/PostgreSQL
-- **Testing:** Pest 4
+- **Baza Danych:** SQLite (domyślnie), pełne wsparcie dla MySQL/PostgreSQL
+- **Testy:** Pest 4
 
-## Key Features
+## Główne Funkcje
 
-- **Authentication:** Custom, secure session flow with email verification support.
-- **Social Interactions:** Profiles with follow/unfollow functionality, post bookmarks, comments, and likes.
-- **Content Discovery:** Public posts list featuring advanced search, category indexing, and tag filtering.
-- **Content Moderation:** Draft vs. published post visibility, managed directly from the back-office.
-- **Localization:** Built-in multi-language mapping and routing (English & Polish).
-- **UI/UX:** Responsive UI seamlessly supporting Light and Dark modes.
+- **Uwierzytelnianie:** W pełni autorski, bezpieczny proces logowania z systemem weryfikacji adresu e-mail.
+- **Interakcje Społecznościowe:** Profile użytkowników, funkcja obserwowania (follow/unfollow), zakładki, system komentarzy z odpowiedziami oraz licznik polubień wpisów.
+- **Dystrybucja Treści:** Publiczna lista postów zawierająca zaawansowaną wyszukiwarkę w czasie rzeczywistym oraz filtrowanie indeksowe po kategoriach i tagach.
+- **Moderacja:** Zarządzanie widocznością artykułów (szkic vs. opublikowane) oraz zatwierdzanie najnowszych komentarzy panelu administracyjnym.
+- **Umiędzynarodowienie:** Natywna obsługa dwóch pełnych wariantów językowych (polskiego i angielskiego).
+- **Interfejs (UI/UX):** Przystępny dla urządzeń mobilnych layout z mechanizmem ciemnego i jasnego motywu widoku.
+- **SEO & Narzędzia:** Subskrypcja na darmowy newsletter (double opt-in), generowanie meta tagów pozycjonujących, dynamiczna mapa sitemap.xml.
 
-## Local Setup
+## Uruchomienie Lokalne (Local Setup)
 
-1. **Clone the repository:**
+1. **Skopiuj repozytorium i przejdź do katalogu projektu:**
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/zstio-pt/blog-2
    cd blog-2
    ```
 
-2. **Install dependencies:**
+2. **Zainstaluj wymagane frameworki:**
    ```bash
    composer install
    npm install
+   ```
+
+3. **Skompiluj statyczny frontend:**
+   ```bash
    npm run build
    ```
 
-3. **Configure environment:**
+4. **Skonfiguruj klucz uwierzytelniania w `.env`:**
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
-4. **Initialize database:**
+5. **Przygotuj bazę danych, ustrukturyzuj linki i utwórz użytkownika (admina):**
    ```bash
+   php artisan storage:link
    php artisan migrate --seed
    ```
 
-5. **Start development server:**
+6. **Rozpocznij pracę nad projektem (tryb lokalny):**
    ```bash
-   php artisan serve
+   composer run serve
    ```
-- Post likes with counters
-- Comment replies and likes
-- Comment moderation (approved/pending)
-- Newsletter with double opt-in and unsubscribe
-- PL/EN locale switch
-- Light/dark theme toggle
-- Basic SEO improvements (meta tags + sitemap + robots)
-- Filament admin access restricted to admin users
+   *(Aplikacja jest domyślnie dostępna pod portem testowym: `http://127.0.0.1:9001` . Jeśli zajmujesz się wizualnymi kaskadami na froncie, pamiętaj, aby w nowej zakładce użyć `composer run dev`)*.
 
-## Installation
-
-```bash
-git clone https://github.com/zstio-pt/blog-2
-cd blog-2
-composer install
-npm install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
-php artisan storage:link
-```
-
-## Development Run
-
-Run backend server:
-
-```bash
-composer run serve
-```
-
-In a second terminal run frontend watcher + queue listener:
-
-```bash
-composer run dev
-```
-
-App URL for this setup:
-
-```text
-http://127.0.0.1:9001
-```
-
-## Tests
-
+## Środowisko Testowe (Pest)
+Żeby uruchomić proces asercji zautomatyzowanych testów Pest:
 ```bash
 php artisan test
 ```
 
-## Formatting
-
+## Formatowanie Skryptów (Pint)
 ```bash
 vendor/bin/pint
 ```
 
-## Useful Routes
-
-- `/` - home with top weekly posts
-- `/blog` - posts list
-- `/posts` - legacy redirect to `/blog`
-- `/posts/{slug}` - post details
-- `/contact` - contact page
-- `/bookmarks` - user bookmarks (verified users)
-- `/account/settings` - profile settings
-- `/admin` - Filament panel (admin users)
-- `/sitemap.xml` - sitemap
+## Przydatne Ścieżki
+- `/` - Główna strona ze skryptem najpopularniejszych ogłoszeń tygodnia.
+- `/blog` - Centralne repozytorium/widok najnowszych artykułów
+- `/posts/{slug}` - Szczegóły opublikowanych widocznych artykułów.
+- `/contact` - Statyczna makieta strony kontaktowej
+- `/bookmarks` - Archiwum zapisanych przez zweryfikowanego użytkownika lektur.
+- `/admin` - Zaplecze administracyjne z panelem wizualnym (wymaga uprawnienia "admin").
+- `/sitemap.xml` - Indeksowanie SEO.
