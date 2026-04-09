@@ -45,13 +45,19 @@ php artisan storage:link
 Run backend server:
 
 ```bash
-php artisan serve
+composer run serve
 ```
 
 In a second terminal run frontend watcher + queue listener:
 
 ```bash
 composer run dev
+```
+
+App URL for this setup:
+
+```text
+http://127.0.0.1:9001
 ```
 
 ## Tests
