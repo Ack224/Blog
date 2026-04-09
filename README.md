@@ -74,8 +74,11 @@ vendor/bin/pint
 
 ## Useful Routes
 
-- `/posts` - posts list
+- `/` - home with top weekly posts
+- `/blog` - posts list
+- `/posts` - legacy redirect to `/blog`
 - `/posts/{slug}` - post details
+- `/contact` - contact page
 - `/bookmarks` - user bookmarks (verified users)
 - `/account/settings` - profile settings
 - `/admin` - Filament panel (admin users)

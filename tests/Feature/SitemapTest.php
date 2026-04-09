@@ -33,7 +33,8 @@ it('returns sitemap with published post urls', function () {
 
     $response->assertOk();
     $response->assertHeader('Content-Type', 'application/xml');
-    $response->assertSee(route('posts.index'), false);
+    $response->assertSee(route('home'), false);
+    $response->assertSee(route('blog.index'), false);
     $response->assertSee(route('posts.show', 'visible-post'), false);
     $response->assertDontSee(route('posts.show', 'hidden-post'), false);
 });

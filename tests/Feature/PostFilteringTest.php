@@ -32,7 +32,7 @@ it('filters posts by search phrase', function () {
         'category' => 'DevOps',
     ]);
 
-    $response = $this->get(route('posts.index', ['q' => 'Search Guide']));
+    $response = $this->get(route('blog.index', ['q' => 'Search Guide']));
 
     $response->assertOk();
     $response->assertSee('Laravel Search Guide');
@@ -64,7 +64,7 @@ it('filters posts by category', function () {
         'category' => 'React',
     ]);
 
-    $response = $this->get(route('posts.index', ['category' => 'React']));
+    $response = $this->get(route('blog.index', ['category' => 'React']));
 
     $response->assertOk();
     $response->assertSee('Category React Post');
@@ -109,9 +109,16 @@ it('filters posts by tag slug', function () {
     $postWithLaravelTag->tags()->attach($tagLaravel->id);
     $postWithDockerTag->tags()->attach($tagDocker->id);
 
-    $response = $this->get(route('posts.index', ['tag' => 'laravel']));
+    $response = $this->get(route('blog.index', ['tag' => 'laravel']));
 
     $response->assertOk();
     $response->assertSee('Tagged Laravel Post');
     $response->assertDontSee('Tagged Docker Post');
+});
+
+it('redirects legacy /posts route to /blog', function () {
+    $response = $this->get('/posts');
+
+    $response->assertStatus(301);
+    $response->assertRedirect('/blog');
 });

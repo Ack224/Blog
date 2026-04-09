@@ -32,10 +32,10 @@ it('returns 404 for unsupported locale', function () {
     $response->assertNotFound();
 });
 
-it('renders posts page in english when locale is set to en', function () {
+it('renders blog page in english when locale is set to en', function () {
     $this->withSession(['locale' => 'en']);
 
-    $response = $this->get(route('posts.index'));
+    $response = $this->get(route('blog.index'));
 
     $response->assertOk();
     $response->assertSee('Latest Posts');

@@ -46,11 +46,11 @@ it('does not create duplicate record for already active subscriber', function ()
 });
 
 it('rejects invalid newsletter email format', function () {
-    $response = $this->from(route('posts.index'))->post(route('newsletter.subscribe'), [
+    $response = $this->from(route('blog.index'))->post(route('newsletter.subscribe'), [
         'newsletter_email' => 'not-an-email',
     ]);
 
-    $response->assertRedirect(route('posts.index'));
+    $response->assertRedirect(route('blog.index'));
     $response->assertSessionHasErrors('newsletter_email');
 });
 
@@ -65,7 +65,7 @@ it('confirms newsletter subscription with valid token', function () {
 
     $response = $this->get(route('newsletter.confirm', 'confirm-token-123'));
 
-    $response->assertRedirect(route('posts.index'));
+    $response->assertRedirect(route('blog.index'));
     $response->assertSessionHas('success');
 
     expect($subscriber->fresh()->confirmed_at)->not->toBeNull();
@@ -83,7 +83,7 @@ it('unsubscribes newsletter subscriber with valid token', function () {
 
     $response = $this->get(route('newsletter.unsubscribe', 'unsubscribe-token-456'));
 
-    $response->assertRedirect(route('posts.index'));
+    $response->assertRedirect(route('blog.index'));
     $response->assertSessionHas('success');
 
     expect($subscriber->fresh()->unsubscribed_at)->not->toBeNull();

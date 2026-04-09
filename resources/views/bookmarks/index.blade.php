@@ -57,7 +57,7 @@
                 <div class="col-span-full bg-white dark:bg-slate-800 rounded-lg shadow-md p-10 text-center">
                     <p class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('You have no saved posts yet.') }}</p>
                     <p class="mt-2 text-gray-600 dark:text-gray-400">{{ __('Go to the posts list and save your first article.') }}</p>
-                    <a href="{{ route('posts.index') }}"
+                    <a href="{{ route('blog.index') }}"
                         class="inline-block mt-5 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
                         {{ __('Browse posts') }}
                     </a>

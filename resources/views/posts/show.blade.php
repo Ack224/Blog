@@ -90,7 +90,7 @@
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">{{ __('Tags') }}:</p>
                     <div class="flex flex-wrap gap-2">
                         @forelse ($post->tags as $tag)
-                            <a href="{{ route('posts.index', ['tag' => $tag->slug]) }}"
+                            <a href="{{ route('blog.index', ['tag' => $tag->slug]) }}"
                                 class="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-200 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
                                 #{{ $tag->name }}
                             </a>

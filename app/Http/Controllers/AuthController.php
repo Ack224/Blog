@@ -28,13 +28,11 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (! $request->user()->hasVerifiedEmail()) {
-                $request->user()->sendEmailVerificationNotification();
-
                 return redirect()->route('verification.notice')
-                    ->with('success', 'Sprawdz skrzynke i potwierdz email, aby odblokowac funkcje konta.');
+                    ->with('success', 'Twoje konto czeka na weryfikację. Aby odblokować wszystkie funkcje, wejdź na maila i zweryfikuj konto.');
             }
 
-            return redirect()->intended(route('posts.index'))->with('success', 'Zalogowano pomyślnie!');
+            return redirect()->intended(route('blog.index'))->with('success', 'Zalogowano pomyślnie!');
         }
 
         return back()->withErrors([
@@ -97,13 +95,13 @@ class AuthController extends Controller
     {
         $request->fulfill();
 
-        return redirect()->route('posts.index')->with('success', 'Adres email zostal potwierdzony.');
+        return redirect()->route('blog.index')->with('success', 'Adres email zostal potwierdzony.');
     }
 
     public function resendVerificationEmail(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->route('posts.index');
+            return redirect()->route('blog.index');
         }
 
         try {
@@ -123,6 +121,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect(route('posts.index'))->with('success', 'Wylogowano pomyślnie!');
+        return redirect(route('blog.index'))->with('success', 'Wylogowano pomyślnie!');
     }
 }

@@ -55,7 +55,7 @@ class NewsletterSubscriptionController extends Controller
             'confirmation_token' => null,
         ]);
 
-        return redirect()->route('posts.index')
+        return redirect()->route('blog.index')
             ->with('success', __('Your newsletter subscription has been confirmed.'));
     }
 
@@ -70,7 +70,7 @@ class NewsletterSubscriptionController extends Controller
             'confirmation_token' => null,
         ]);
 
-        return redirect()->route('posts.index')
+        return redirect()->route('blog.index')
             ->with('success', __('You have been unsubscribed from the newsletter.'));
     }
 }

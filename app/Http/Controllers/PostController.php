@@ -227,7 +227,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('posts.index')->with('success', 'Post został usunięty!');
+        return redirect()->route('blog.index')->with('success', 'Post został usunięty!');
     }
 
     public function storeComment(Request $request, int $id)

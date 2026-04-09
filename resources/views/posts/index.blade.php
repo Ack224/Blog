@@ -1,7 +1,7 @@
 <x-layout
     :title="__('Blog - Latest Posts')"
     :description="__('Browse the latest articles about programming, Laravel, and web development.')"
-    :canonical="route('posts.index', request()->query())"
+    :canonical="route('blog.index', request()->query())"
 >
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -11,7 +11,7 @@
             <p class="mt-2 text-gray-600 dark:text-gray-400 transition-colors">{{ __('Discover the latest articles from the programming world.') }}</p>
         </div>
 
-        <form method="GET" action="{{ route('posts.index') }}"
+        <form method="GET" action="{{ route('blog.index') }}"
             class="mb-8 p-4 bg-white dark:bg-slate-800 rounded-lg shadow-md dark:shadow-lg grid gap-4 lg:grid-cols-4">
             <div class="lg:col-span-2">
                 <label for="q" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('Search') }}</label>
@@ -46,7 +46,7 @@
                     class="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-medium hover:bg-indigo-700 transition-colors">
                     {{ __('Filter') }}
                 </button>
-                <a href="{{ route('posts.index') }}"
+                <a href="{{ route('blog.index') }}"
                     class="px-4 py-2 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-200 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
                     {{ __('Clear') }}
                 </a>
@@ -118,13 +118,13 @@
 
                         <div class="flex items-center gap-2 mb-4 flex-wrap">
                             @if ($post->category)
-                                <a href="{{ route('posts.index', array_merge(request()->query(), ['category' => $post->category])) }}"
+                                <a href="{{ route('blog.index', array_merge(request()->query(), ['category' => $post->category])) }}"
                                     class="px-2 py-1 text-xs rounded bg-indigo-100 text-indigo-700 hover:bg-indigo-200 transition-colors">
                                     {{ $post->category }}
                                 </a>
                             @endif
                             @foreach ($post->tags->take(3) as $tag)
-                                <a href="{{ route('posts.index', array_merge(request()->query(), ['tag' => $tag->slug])) }}"
+                                <a href="{{ route('blog.index', array_merge(request()->query(), ['tag' => $tag->slug])) }}"
                                     class="px-2 py-1 text-xs rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                                     #{{ $tag->name }}
                                 </a>
